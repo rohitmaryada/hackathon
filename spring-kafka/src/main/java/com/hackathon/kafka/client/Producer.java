@@ -17,6 +17,7 @@ public class Producer {
 
     private final KafkaTemplate<Integer, String> kafkaTemplate;
     Faker faker;
+    private final String HOBBIT_TOPIC_NAME = "hobbit";
 
     @EventListener(ApplicationStartedEvent.class)
     public void generate() {
@@ -25,6 +26,6 @@ public class Producer {
         // Reactive programming - sending messages every second
         final Flux<Long> interval = Flux.interval(Duration.ofMillis(1000));
         final Flux<String> quotes = Flux.fromStream(Stream.generate(() -> faker.hobbit().quote()));
-        Flux.zip(interval, quotes).map(it -> kafkaTemplate.send("hobbit", faker.random().nextInt(42), it.getT2())).blockLast();
+        Flux.zip(interval, quotes).map(it -> kafkaTemplate.send(HOBBIT_TOPIC_NAME, faker.random().nextInt(42), it.getT2())).blockLast();
     }
 }

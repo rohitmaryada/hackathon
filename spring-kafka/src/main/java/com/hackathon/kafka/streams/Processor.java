@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
+import static com.hackathon.kafka.TopicConfiguration.WORD_COUNT_TOPIC_NAME;
+
 @Component
 public class Processor {
 
@@ -26,6 +28,6 @@ public class Processor {
                 .groupBy((key, value) -> value, Grouped.with(stringSerde, stringSerde))
                 .count(Materialized.as("counts"));
 
-        wordCount.toStream().to("hackathon_kafka_wordcount", Produced.with(stringSerde, longSerde));
+        wordCount.toStream().to(WORD_COUNT_TOPIC_NAME, Produced.with(stringSerde, longSerde));
     }
 }

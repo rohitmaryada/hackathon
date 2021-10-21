@@ -18,13 +18,14 @@ public class Processor {
         final Serde<Integer> integerSerde = Serdes.Integer();
         final Serde<String> stringSerde = Serdes.String();
         final Serde<Long> longSerde = Serdes.Long();
-        
+
         KStream<Integer, String> textLines = builder.stream("hobbit", Consumed.with(integerSerde, stringSerde));
 
         KTable<String, Long> wordCount = textLines.flatMapValues(value ->
                 Arrays.asList(value.toLowerCase().split("\\W+")))
-                .groupBy((key, value) -> value, Grouped.with(stringSerde, stringSerde)).count();
+                .groupBy((key, value) -> value, Grouped.with(stringSerde, stringSerde))
+                .count(Materialized.as("counts"));
 
-        wordCount.toStream().to("hackathon_kafka-10_22_1_wordcount", Produced.with(stringSerde, longSerde));
+        wordCount.toStream().to("hackathon_kafka_wordcount", Produced.with(stringSerde, longSerde));
     }
 }

@@ -12,7 +12,7 @@ public class Consumer {
         System.out.println("received= " + record.value() + " with key " + record.key());
     }*/
 
-    @KafkaListener(topics= {"hackathon_kafka-10_22_1_wordcount"}, groupId="hackathon-kafka")
+    @KafkaListener(topics= {"hackathon_kafka_wordcount"}, groupId="hackathon-kafka")
     public void consumeFromWordCount(ConsumerRecord<String, Long> record) {
         System.out.println("received= " + record.value() + " with key " + record.key());
     }

@@ -10,8 +10,8 @@ public class TopicConfiguration {
 
     // Topics after creation will be updated if same name is used.
     @Bean
-    public NewTopic hackathonKafka10221Wordcount() {
-        return TopicBuilder.name("hackathon_kafka-10_22_1_wordcount")
+    public NewTopic hackathonKafkaWordcount() {
+        return TopicBuilder.name("hackathon_kafka_wordcount")
                 .partitions(3)
                 .replicas(3)
                 .compact()

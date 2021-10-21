@@ -22,7 +22,7 @@ public class KafkaConfiguration {
                         ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432,
                         ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class,
                         ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class)
-                );
+        );
     }
 
     @Bean
